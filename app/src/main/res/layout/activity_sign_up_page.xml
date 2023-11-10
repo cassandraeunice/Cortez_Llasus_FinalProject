@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage"
+    tools:context=".SignUpPage"
     android:background="@color/pink">
 
     <LinearLayout
@@ -47,13 +47,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.277">
+        app:layout_constraintVertical_bias="0.236">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/comingsoon"
-            android:text="LOGIN"
+            android:text="SIGN UP"
             android:textColor="@color/white"
             android:textSize="40sp"
             android:textStyle="bold"
@@ -93,6 +93,21 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/name"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rounded_edit_text"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawablePadding="20dp"
+                android:elevation="20dp"
+                android:fontFamily="@font/kgprimarypenmanship"
+                android:hint="name"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:alpha="0.9"/>
+
+            <EditText
                 android:id="@+id/username"
                 android:layout_width="260dp"
                 android:layout_height="50dp"
@@ -122,6 +137,21 @@
                 android:textSize="30sp"
                 android:alpha="0.9"/>
 
+            <EditText
+                android:id="@+id/confpass"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_edit_text"
+                android:drawableLeft="@drawable/baseline_lock_24"
+                android:drawablePadding="20dp"
+                android:elevation="20dp"
+                android:fontFamily="@font/kgprimarypenmanship"
+                android:hint="confirm password"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:alpha="0.9"/>
+
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="180dp"
@@ -130,35 +160,18 @@
                 android:backgroundTint="@color/dark_pink"
                 android:elevation="20dp"
                 android:fontFamily="@font/kgprimarypenmanship"
-                android:text="Login"
+                android:text="Sign Up"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"/>
-
             <TextView
-                android:id="@+id/tvSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Sign Up"
-                android:textColor="@color/dark_pink"
-                android:textSize="20sp"
-                android:onClick="onSignUpClick"
-                android:clickable="true"
-                android:textStyle="bold"
-                android:padding="15dp" />
-
-            <TextView
-                android:id="@+id/tvForgotPassword"
+                android:id="@+id/tvHaveAnAcc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
-                android:onClick="onForgotPasswordClick"
-                android:text="Forgot Password?"
+                android:onClick="onHaveAnAccClick"
+                android:text="Already have an account?"
                 android:textColor="@color/dark_pink"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -170,7 +183,5 @@
                 android:layout_height="30dp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
