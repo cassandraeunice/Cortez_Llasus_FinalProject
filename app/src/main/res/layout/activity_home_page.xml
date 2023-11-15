@@ -14,9 +14,11 @@
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047">
+        app:layout_constraintVertical_bias="0.043">
 
         <ImageView
             android:layout_width="80dp"
@@ -42,52 +44,52 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="156dp"
         android:fontFamily="@font/comingsoon"
         android:gravity="center_horizontal|top"
         android:text="Welcome, <User>!"
         android:textColor="@color/white"
         android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.279" />
 
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="339.8px"
         android:layout_height="331.3px"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="60dp"
         android:background="@drawable/homepagebtn"
+        android:contentDescription="Add Product"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_use"
-        app:srcCompat="@drawable/viewinventorybtn"
-        android:contentDescription="Add Product"/>
+        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499"
+        app:srcCompat="@drawable/viewinventorybtn" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="339.8px"
         android:layout_height="331.3px"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="21dp"
         android:layout_marginEnd="25dp"
         android:background="@drawable/homepagebtn"
+        android:contentDescription="View Inventory"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_use"
-        app:srcCompat="@drawable/addproductbtn"
-        android:contentDescription="View Inventory"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499"
+        app:srcCompat="@drawable/addproductbtn" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="106dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="157dp"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
         android:background="@drawable/homepagebtn"
         android:backgroundTint="#FF2689"
         android:fontFamily="@font/comingsoon"
@@ -95,8 +97,12 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.94" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
