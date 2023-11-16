@@ -113,11 +113,12 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rounded_edit_text"
-                android:drawableLeft="@drawable/baseline_lock_24"
+                android:drawableStart="@drawable/baseline_lock_24"
                 android:drawablePadding="20dp"
                 android:elevation="20dp"
                 android:fontFamily="@font/kgprimarypenmanship"
                 android:hint="password"
+                android:inputType="textPassword"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:alpha="0.9"/>

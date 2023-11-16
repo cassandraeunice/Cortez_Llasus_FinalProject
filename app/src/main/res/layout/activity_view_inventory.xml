@@ -36,7 +36,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="320dp"
         android:layout_height="48dp"
@@ -71,7 +71,6 @@
         android:layout_marginTop="31dp"
         android:fontFamily="@font/kgprimarypenmanship"
         android:text="Total View Count:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"

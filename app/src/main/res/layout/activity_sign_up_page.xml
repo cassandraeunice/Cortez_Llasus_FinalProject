@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="30dp"
-        android:layout_marginBottom="-20dp">
+        android:layout_marginBottom="-25dp">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -133,6 +133,7 @@
                 android:elevation="20dp"
                 android:fontFamily="@font/kgprimarypenmanship"
                 android:hint="password"
+                android:inputType="textPassword"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:alpha="0.9"/>
@@ -148,12 +149,13 @@
                 android:elevation="20dp"
                 android:fontFamily="@font/kgprimarypenmanship"
                 android:hint="confirm password"
+                android:inputType="textPassword"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:alpha="0.9"/>
 
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnSignUp"
                 android:layout_width="180dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
@@ -162,7 +164,8 @@
                 android:fontFamily="@font/kgprimarypenmanship"
                 android:text="Sign Up"
                 android:textColor="@color/white"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:onClick="saveRecord"/>
 
             <TextView
                 android:id="@+id/tvHaveAnAcc"
@@ -171,7 +174,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:onClick="onHaveAnAccClick"
-                android:text="Already have an account?"
+                android:text="Already have an account? Sign In"
                 android:textColor="@color/dark_pink"
                 android:textSize="20sp"
                 android:textStyle="bold"
