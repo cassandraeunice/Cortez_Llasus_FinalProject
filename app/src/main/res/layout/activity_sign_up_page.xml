@@ -93,22 +93,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/name"
-                android:layout_width="260dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/rounded_edit_text"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:drawablePadding="20dp"
-                android:elevation="20dp"
-                android:fontFamily="@font/kgprimarypenmanship"
-                android:hint="name"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                android:alpha="0.9"/>
-
-            <EditText
-                android:id="@+id/username"
+                android:id="@+id/uname"
                 android:layout_width="260dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
@@ -118,6 +103,21 @@
                 android:elevation="20dp"
                 android:fontFamily="@font/kgprimarypenmanship"
                 android:hint="username"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:alpha="0.9"/>
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rounded_edit_text"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawablePadding="20dp"
+                android:elevation="20dp"
+                android:fontFamily="@font/kgprimarypenmanship"
+                android:hint="email"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:alpha="0.9"/>
