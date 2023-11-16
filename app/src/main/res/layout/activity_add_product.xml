@@ -8,7 +8,7 @@
     android:background="#FF93AC">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button6"
         android:layout_width="106dp"
         android:layout_height="63dp"
         android:layout_marginStart="93dp"
