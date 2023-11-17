@@ -36,7 +36,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <androidx.appcompat.widget.SearchView
+    <SearchView
         android:id="@+id/searchView"
         android:layout_width="320dp"
         android:layout_height="48dp"

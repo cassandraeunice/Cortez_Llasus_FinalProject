@@ -69,15 +69,14 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textResult"
         android:layout_width="591px"
         android:layout_height="101px"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/rounded_corner"
         android:fontFamily="@font/kgprimarypenmanship"
         android:gravity="center"
-        android:text="123456789"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
