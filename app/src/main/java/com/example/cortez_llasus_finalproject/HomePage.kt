@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -25,6 +26,7 @@ class HomePage : AppCompatActivity() {
         setContentView(R.layout.activity_home_page)
 
         val username = intent.getStringExtra("USERNAME")
+
 
         val welcomeTextView = findViewById<TextView>(R.id.welcome_use)
 

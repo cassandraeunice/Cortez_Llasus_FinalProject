@@ -34,8 +34,8 @@ class SignUpPage : AppCompatActivity() {
         val confirmPassword = confPassEditText.text.toString()
 
         if (username.trim().isNotEmpty() && email.trim().isNotEmpty() &&
-            password.trim().isNotEmpty() && confirmPassword.trim().isNotEmpty()
-        ) {
+            password.trim().isNotEmpty() && confirmPassword.trim().isNotEmpty())
+        {
             if (password == confirmPassword) {
                 val success = dbHelper.insertUser(username, email, password)
 

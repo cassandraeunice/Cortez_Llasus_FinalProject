@@ -9,7 +9,7 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper (context, DATABASE_NA
 
     companion object {
         private const val DATABASE_VERSION = 1
-        private const val DATABASE_NAME = "supplymateDB"
+        private const val DATABASE_NAME = "supplymateDB.db"
         private const val TABLE_NAME = "UserInfo"
         private const val KEY_ID = "id"
         private const val KEY_USERNAME = "username"
@@ -33,7 +33,7 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper (context, DATABASE_NA
         onCreate(db)
     }
 
-    fun insertUser(username: String,email: String, password: String): Long {
+    fun insertUser(username: String, email: String, password: String): Long {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put(KEY_USERNAME, username)
