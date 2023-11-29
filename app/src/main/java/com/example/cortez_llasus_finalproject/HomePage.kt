@@ -107,7 +107,7 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun initBinding() {
-       binding = ActivityHomePageBinding.inflate(layoutInflater)
+        binding = ActivityHomePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }

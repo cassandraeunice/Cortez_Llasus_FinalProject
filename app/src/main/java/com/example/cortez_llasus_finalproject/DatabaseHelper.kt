@@ -7,8 +7,9 @@ import android.database.Cursor
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
-class DatabaseHelper (context: Context) : SQLiteOpenHelper (context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         private const val DATABASE_VERSION = 1
@@ -23,7 +24,7 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper (context, DATABASE_NA
         private const val KEY_CATEGORY = "category"
         private const val KEY_QUANTITY = "quantity"
         private const val KEY_DATEADDED = "dateAdded"
-
+        private const val KEY_USER_ID = "user_id"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -36,17 +37,17 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper (context, DATABASE_NA
                 "$KEY_ITEMNAME TEXT," +
                 "$KEY_CATEGORY TEXT," +
                 "$KEY_QUANTITY TEXT," +
-                "$KEY_DATEADDED TEXT)")
+                "$KEY_DATEADDED TEXT," +
+                "$KEY_USER_ID INTEGER)")
         db?.execSQL(CREATE_USERS_TABLE)
     }
 
-
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db!!.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME)
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
 
-    fun insertUser(username: String,email: String, password: String): Long {
+    fun insertUser(username: String, email: String, password: String): Long {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put(KEY_USERNAME, username)
@@ -72,7 +73,14 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper (context, DATABASE_NA
         return userExists
     }
 
-    fun addInventory(barcode: String, itemName: String, category: String, quantity: String, dateAdded: String): Long {
+    fun addInventory(
+        user_id: Int,
+        barcode: String,
+        itemName: String,
+        category: String,
+        quantity: String,
+        dateAdded: String
+    ): Long {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put(KEY_BARCODE, barcode)
@@ -80,51 +88,92 @@ class DatabaseHelper (context: Context) : SQLiteOpenHelper (context, DATABASE_NA
             put(KEY_CATEGORY, category)
             put(KEY_QUANTITY, quantity)
             put(KEY_DATEADDED, dateAdded)
+            put(KEY_USER_ID, user_id)
         }
         val success = db.insert(TABLE_NAME, null, values)
         db.close()
         return success
     }
 
+    private val inventoryList = mutableListOf<InventoryItem>()
 
     @SuppressLint("Range")
-    fun viewInventory(): List<InventoryItem> {
+    fun viewInventory(userId: Int): List<InventoryItem> {
         val inventoryList = mutableListOf<InventoryItem>()
 
         val db = this.readableDatabase
-        val select = "SELECT $KEY_BARCODE, $KEY_ITEMNAME, $KEY_CATEGORY, $KEY_QUANTITY, $KEY_DATEADDED FROM $TABLE_NAME"
+        val select =
+            "SELECT $KEY_BARCODE, $KEY_ITEMNAME, $KEY_CATEGORY, $KEY_QUANTITY, $KEY_DATEADDED FROM $TABLE_NAME WHERE $KEY_USER_ID = ?"
         var cursor: Cursor? = null
 
         try {
-            cursor = db.rawQuery(select, null)
+            cursor = db.rawQuery(select, arrayOf(userId.toString()))
+            Log.d("ViewInventory", "SQL Query: $select")
         } catch (e: SQLException) {
-            db.execSQL(select)
+            e.printStackTrace()
             return inventoryList
         }
 
         cursor?.use {
             if (it.moveToFirst()) {
-                do {
-                    val retrievedBarcode = it.getString(it.getColumnIndex(KEY_BARCODE))
-                    val retrievedItemName = it.getString(it.getColumnIndex(KEY_ITEMNAME))
-                    val retrievedCategory = it.getString(it.getColumnIndex(KEY_CATEGORY))
-                    val retrievedQuantity = it.getString(it.getColumnIndex(KEY_QUANTITY))
-                    val retrievedDateAdded = it.getString(it.getColumnIndex(KEY_DATEADDED))
+                val barcodeIndex = it.getColumnIndex(KEY_BARCODE)
+                val itemNameIndex = it.getColumnIndex(KEY_ITEMNAME)
+                val categoryIndex = it.getColumnIndex(KEY_CATEGORY)
+                val quantityIndex = it.getColumnIndex(KEY_QUANTITY)
+                val dateAddedIndex = it.getColumnIndex(KEY_DATEADDED)
 
-                    val inventoryItem = InventoryItem(
-                        retrievedBarcode,
-                        retrievedItemName,
-                        retrievedCategory,
-                        retrievedQuantity,
-                        retrievedDateAdded
-                    )
-                    inventoryList.add(inventoryItem)
+                // Check if column indices are valid
+                if (barcodeIndex >= 0 && itemNameIndex >= 0 && categoryIndex >= 0 && quantityIndex >= 0 && dateAddedIndex >= 0) {
+                    do {
+                        val retrievedBarcode = it.getString(barcodeIndex)
+                        val retrievedItemName = it.getString(itemNameIndex)
+                        val retrievedCategory = it.getString(categoryIndex)
+                        val retrievedQuantity = it.getString(quantityIndex)
+                        val retrievedDateAdded = it.getString(dateAddedIndex)
 
-                } while (it.moveToNext())
+                        val inventoryItem = InventoryItem(
+                            retrievedBarcode,
+                            retrievedItemName,
+                            retrievedCategory,
+                            retrievedQuantity,
+                            retrievedDateAdded
+                        )
+                        inventoryList.add(inventoryItem)
+
+                    } while (it.moveToNext())
+                } else {
+                    // Log an error or handle the case where a column index is invalid
+                    Log.e("ViewInventory", "Invalid column index")
+                }
             }
         }
-
+        Log.d("ViewInventory", "Retrieved items count: ${inventoryList.size}")
         return inventoryList
+    }
+
+    @SuppressLint("Range")
+    fun getUserId(username: String): Long {
+        val db = this.readableDatabase
+        val selection = "$KEY_USERNAME = ?"
+        val selectionArgs = arrayOf(username)
+        val columns = arrayOf(KEY_ID)
+
+        var userId: Long = -1 // Default value in case of failure
+
+        try {
+            val cursor =
+                db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null)
+
+            if (cursor.moveToFirst()) {
+                userId = cursor.getLong(cursor.getColumnIndex(KEY_ID))
+            }
+
+            cursor.close()
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+
+        return userId
     }
 
 

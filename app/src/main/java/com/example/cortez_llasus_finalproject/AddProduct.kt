@@ -38,27 +38,29 @@ class AddProduct : AppCompatActivity() {
             val quantity = quantityEditText.text.toString()
             val dateadded = dateaddedEditText.text.toString()
 
+            // Assuming you have a session manager to get the user_id
+            val sessionManager = SessionManager(this)
+            val user_id = sessionManager.userId
+
             if (barcode.trim().isNotEmpty() && itemname.trim().isNotEmpty() &&
-                category.trim().isNotEmpty() && quantity.trim().isNotEmpty() &&
-                dateadded.trim().isNotEmpty()){
-                val success = dbHelper.addInventory(barcode, itemname, category, quantity, dateadded)
+                    category.trim().isNotEmpty() && quantity.trim().isNotEmpty() &&
+                    dateadded.trim().isNotEmpty() && user_id != -1){
+                    val success = dbHelper.addInventory(user_id, barcode, itemname, category, quantity, dateadded)
 
-                Toast.makeText(this, "Item added to the inventory", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Item added to the inventory", Toast.LENGTH_LONG).show()
 
-                val i = Intent(this, ViewInventory::class.java)
-                startActivity(i)
+                    val i = Intent(this, ViewInventory::class.java)
+                    startActivity(i)
 
-                itemNameEditText.text.clear()
-                categoryEditText.text.clear()
-                quantityEditText.text.clear()
-                dateaddedEditText.text.clear()
+                    itemNameEditText.text.clear()
+                    categoryEditText.text.clear()
+                    quantityEditText.text.clear()
+                    dateaddedEditText.text.clear()
 
-                finish()
-            } // add else statements
-            else{
-                Toast.makeText(this, "Item is not added to the inventory. Try Again", Toast.LENGTH_LONG).show()
-            }
+                    finish()
+                } else {
+                    Toast.makeText(this, "Item is not added to the inventory. Try Again", Toast.LENGTH_LONG).show()
+                }
         }
     }
-
 }

@@ -225,8 +225,8 @@
 
     <EditText
         android:id="@+id/etCategory"
-        android:layout_width="211dp"
-        android:layout_height="42dp"
+        android:layout_width="216dp"
+        android:layout_height="39dp"
         android:background="@null"
         android:ems="10"
         android:fontFamily="@font/kgprimarypenmanship"
