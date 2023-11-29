@@ -41,6 +41,14 @@ class HomePage : AppCompatActivity() {
             finish()
         }
 
+        val btnView = findViewById<ImageButton>(R.id.btnView)
+
+        btnView.setOnClickListener{
+            val intent = Intent(this, ViewInventory:: class.java)
+            startActivity(intent)
+        }
+
+
         // Initialize binding
         initBinding()
 
@@ -101,7 +109,7 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun initBinding() {
-       binding = ActivityHomePageBinding.inflate(layoutInflater)
+        binding = ActivityHomePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }

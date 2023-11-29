@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.widget.*
 
 class LoginPage : AppCompatActivity() {
+
+    private lateinit var sessionManager: SessionManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
+
+        sessionManager = SessionManager(this)
 
         var unameEditText = findViewById<EditText>(R.id.uname)
         var passwordEditText = findViewById<EditText>(R.id.password)
@@ -27,6 +31,11 @@ class LoginPage : AppCompatActivity() {
                 val success = dbHelper.readUser(username, password)
 
                 if (success) {
+                    // Get the user identifier from your database (replace with your logic)
+                    val userId = dbHelper.getUserId(username)
+
+                    // Store the user identifier in the SessionManager
+                    sessionManager.userId = userId.toInt()
 
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show()
 
@@ -40,14 +49,14 @@ class LoginPage : AppCompatActivity() {
 
                     finish()
                 } else {
-
                     Toast.makeText(this, "Login Unsuccessful. Check your credentials.", Toast.LENGTH_LONG).show()
                 }
             } else {
-
                 Toast.makeText(this, "Username or Password cannot be blank", Toast.LENGTH_LONG).show()
             }
         }
+
+
 
         tvSignUp.setOnClickListener {
             val i = Intent(this, SignUpPage::class.java)
