@@ -42,7 +42,7 @@ class HomePage : AppCompatActivity() {
             finish()
         }
 
-        val btnView = binding.root.findViewById<ImageButton>(R.id.btnView)
+        val btnView = binding.btnView
 
         btnView.setOnClickListener {
             val intent = Intent(this, ViewInventory::class.java)
