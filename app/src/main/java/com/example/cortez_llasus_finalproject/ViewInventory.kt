@@ -20,7 +20,7 @@ class ViewInventory : AppCompatActivity() {
         // Get the user_id using the session manager
         val userId = sessionManager.userId
 
-        Log.d("ViewInventory", "User ID from SessionManager: $userId")
+        Log.d("ViewInventory", "Inventory ID from SessionManager: $userId")
 
 
         // Initialize the inventoryListAdapter

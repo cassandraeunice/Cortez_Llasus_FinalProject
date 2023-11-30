@@ -14,36 +14,45 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     companion object {
         private const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "supplymateDB.db"
-        private const val TABLE_NAME = "UserInfo"
+        private const val TABLE_USER = "UserInfo"
+        private const val TABLE_INVENTORY = "InventoryInfo"
         private const val KEY_ID = "id"
         private const val KEY_USERNAME = "username"
         private const val KEY_EMAIL = "email"
         private const val KEY_PASSWORD = "password"
-        private const val KEY_ITEMNAME = "itemName"
+        private const val KEY_USER_ID = "user_id"
+        private const val KEY_INVENTORY_ID = "inventory_id"
         private const val KEY_BARCODE = "barcode"
+        private const val KEY_ITEMNAME = "itemName"
         private const val KEY_CATEGORY = "category"
         private const val KEY_QUANTITY = "quantity"
         private const val KEY_DATEADDED = "dateAdded"
-        private const val KEY_USER_ID = "user_id"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val CREATE_USERS_TABLE = ("CREATE TABLE $TABLE_NAME (" +
+        val CREATE_USERS_TABLE = ("CREATE TABLE $TABLE_USER (" +
                 "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "$KEY_USERNAME TEXT," +
                 "$KEY_EMAIL TEXT," +
-                "$KEY_PASSWORD TEXT," +
+                "$KEY_PASSWORD TEXT)")
+
+        val CREATE_INVENTORY_TABLE = ("CREATE TABLE $TABLE_INVENTORY (" +
+                "$KEY_INVENTORY_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "$KEY_USER_ID INTEGER," +
                 "$KEY_BARCODE TEXT," +
                 "$KEY_ITEMNAME TEXT," +
                 "$KEY_CATEGORY TEXT," +
                 "$KEY_QUANTITY TEXT," +
                 "$KEY_DATEADDED TEXT," +
-                "$KEY_USER_ID INTEGER)")
+                "FOREIGN KEY($KEY_USER_ID) REFERENCES $TABLE_USER($KEY_ID))")
+
         db?.execSQL(CREATE_USERS_TABLE)
+        db?.execSQL(CREATE_INVENTORY_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+        db!!.execSQL("DROP TABLE IF EXISTS $TABLE_USER")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_INVENTORY")
         onCreate(db)
     }
 
@@ -55,7 +64,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_PASSWORD, password)
         }
 
-        val success = db.insert(TABLE_NAME, null, values)
+        val success = db.insert(TABLE_USER, null, values)
         db.close()
 
         return success
@@ -65,7 +74,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.readableDatabase
         val selection = "$KEY_USERNAME = ? AND $KEY_PASSWORD = ?"
         val selectionArgs = arrayOf(username, password)
-        val cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null)
+        val cursor = db.query(TABLE_USER, null, selection, selectionArgs, null, null, null)
 
         val userExists = cursor.count > 0
         cursor.close()
@@ -80,7 +89,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val selectionArgs = arrayOf(email)
 
         return try {
-            val cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null)
+            val cursor = db.query(TABLE_USER, null, selection, selectionArgs, null, null, null)
             val emailExists = cursor.count > 0
             cursor.close()
             emailExists
@@ -101,7 +110,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val whereClause = "$KEY_EMAIL = ?"
         val whereArgs = arrayOf(email)
 
-        val rowsAffected = db.update(TABLE_NAME, values, whereClause, whereArgs)
+        val rowsAffected = db.update(TABLE_USER, values, whereClause, whereArgs)
         db.close()
 
         return rowsAffected
@@ -117,19 +126,19 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     ): Long {
         val db = this.writableDatabase
         val values = ContentValues().apply {
+            put(KEY_USER_ID, user_id)
             put(KEY_BARCODE, barcode)
             put(KEY_ITEMNAME, itemName)
             put(KEY_CATEGORY, category)
             put(KEY_QUANTITY, quantity)
             put(KEY_DATEADDED, dateAdded)
-            put(KEY_USER_ID, user_id)
         }
-        val success = db.insert(TABLE_NAME, null, values)
+
+        val success = db.insert(TABLE_INVENTORY, null, values)
         db.close()
+
         return success
     }
-
-    private val inventoryList = mutableListOf<InventoryItem>()
 
     @SuppressLint("Range")
     fun viewInventory(userId: Int): List<InventoryItem> {
@@ -137,7 +146,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val db = this.readableDatabase
         val select =
-            "SELECT $KEY_BARCODE, $KEY_ITEMNAME, $KEY_CATEGORY, $KEY_QUANTITY, $KEY_DATEADDED FROM $TABLE_NAME WHERE $KEY_USER_ID = ?"
+            "SELECT $KEY_BARCODE, $KEY_ITEMNAME, $KEY_CATEGORY, $KEY_QUANTITY, $KEY_DATEADDED FROM $TABLE_INVENTORY WHERE $KEY_USER_ID = ?"
         var cursor: Cursor? = null
 
         try {
@@ -190,16 +199,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.readableDatabase
         val selection = "$KEY_USERNAME = ?"
         val selectionArgs = arrayOf(username)
-        val columns = arrayOf(KEY_ID)
+        val columns = arrayOf(KEY_USER_ID) // Corrected the column name
 
         var userId: Long = -1 // Default value in case of failure
 
         try {
-            val cursor =
-                db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null)
+            val cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null)
 
             if (cursor.moveToFirst()) {
-                userId = cursor.getLong(cursor.getColumnIndex(KEY_ID))
+                userId = cursor.getLong(cursor.getColumnIndex(KEY_USER_ID))
             }
 
             cursor.close()
