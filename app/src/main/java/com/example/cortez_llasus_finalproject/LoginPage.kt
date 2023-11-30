@@ -40,8 +40,7 @@ class LoginPage : AppCompatActivity() {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show()
 
                     val i = Intent(this, HomePage::class.java)
-                    startActivity(i)
-                    i.putExtra("USERNAME", username)
+                    i.putExtra("USERNAME", username)  // Move this line here
                     startActivity(i)
 
                     unameEditText.text.clear()
@@ -56,15 +55,14 @@ class LoginPage : AppCompatActivity() {
             }
         }
 
-
-
         tvSignUp.setOnClickListener {
             val i = Intent(this, SignUpPage::class.java)
             startActivity(i)
         }
 
         tvForgotPassw.setOnClickListener {
-
+            val i = Intent(this, ForgotPassword::class.java)
+            startActivity(i)
         }
     }
 }

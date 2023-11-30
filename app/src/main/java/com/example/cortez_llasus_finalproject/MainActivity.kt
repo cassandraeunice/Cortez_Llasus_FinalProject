@@ -8,13 +8,13 @@ import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
 
-    private val ANIMATION_DURATION: Long = 9000
+    private val ANIMATION_DURATION: Long = 5000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val welcomeAnimationView: LottieAnimationView = findViewById(R.id.welcomeanimation)
+        val welcomeAnimationView: LottieAnimationView = findViewById(R.id.logoanimation)
 
         welcomeAnimationView.playAnimation()
 

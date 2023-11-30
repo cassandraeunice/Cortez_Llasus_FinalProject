@@ -23,6 +23,12 @@ class SignUpPage : AppCompatActivity() {
     }
 
     fun saveRecord(view: View) {
+
+        fun isValidPassword(password: String): Boolean {
+            val passwordRegex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}$")
+            return passwordRegex.matches(password)
+        }
+
         val unameEditText = findViewById<EditText>(R.id.uname)
         val emailEditText = findViewById<EditText>(R.id.email)
         val passEditText = findViewById<EditText>(R.id.password)
@@ -36,35 +42,45 @@ class SignUpPage : AppCompatActivity() {
         if (username.trim().isNotEmpty() && email.trim().isNotEmpty() &&
             password.trim().isNotEmpty() && confirmPassword.trim().isNotEmpty())
         {
-            if (password == confirmPassword) {
-                val success = dbHelper.insertUser(username, email, password)
+            if (isValidPassword(password)) {
 
-                if (success != -1L) {
+                if (password == confirmPassword) {
+                    val success = dbHelper.insertUser(username, email, password)
 
-                    Toast.makeText(this, "Signed up Successfully", Toast.LENGTH_LONG).show()
+                    if (success != -1L) {
 
-                    val i = Intent(this, LoginPage::class.java)
-                    startActivity(i)
+                        Toast.makeText(this, "Signed up Successfully", Toast.LENGTH_LONG).show()
 
-                    unameEditText.text.clear()
-                    emailEditText.text.clear()
-                    passEditText.text.clear()
-                    confPassEditText.text.clear()
+                        val i = Intent(this, LoginPage::class.java)
+                        startActivity(i)
 
-                    finish()
+                        unameEditText.text.clear()
+                        emailEditText.text.clear()
+                        passEditText.text.clear()
+                        confPassEditText.text.clear()
 
+                        finish()
+
+                    }
+
+                    else {
+
+                        Toast.makeText(this, "Sign Up Unsuccessfully. Try again.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 else {
 
-                    Toast.makeText(this, "Sign Up Unsuccessfully. Try again.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Passwords do not match", Toast.LENGTH_LONG).show()
                 }
+
             }
 
             else {
 
-                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Password must contain a small letter, capital letter, number, and special character. Minimum of 8 characters.", Toast.LENGTH_LONG).show()
             }
+
         }
 
         else {

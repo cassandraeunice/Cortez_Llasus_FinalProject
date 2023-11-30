@@ -25,15 +25,16 @@ class HomePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
+        // Initialize binding
+        initBinding()
+
         val username = intent.getStringExtra("USERNAME")
-
-
-        val welcomeTextView = findViewById<TextView>(R.id.welcome_use)
+        val welcomeTextView = binding.root.findViewById<TextView>(R.id.welcome_use)
 
         val welcomeText = "Welcome, $username!"
         welcomeTextView.text = welcomeText
 
-        val logoutButton = findViewById<Button>(R.id.button)
+        val logoutButton = binding.root.findViewById<Button>(R.id.button)
 
         logoutButton.setOnClickListener {
             val intent = Intent(this, LoginPage::class.java)
@@ -41,16 +42,12 @@ class HomePage : AppCompatActivity() {
             finish()
         }
 
-        val btnView = findViewById<ImageButton>(R.id.btnView)
+        val btnView = binding.root.findViewById<ImageButton>(R.id.btnView)
 
-        btnView.setOnClickListener{
-            val intent = Intent(this, ViewInventory:: class.java)
+        btnView.setOnClickListener {
+            val intent = Intent(this, ViewInventory::class.java)
             startActivity(intent)
         }
-
-
-        // Initialize binding
-        initBinding()
 
         // Initialize scanner views
         initViews()

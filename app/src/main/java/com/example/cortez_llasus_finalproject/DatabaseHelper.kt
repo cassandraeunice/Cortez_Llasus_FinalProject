@@ -73,6 +73,40 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return userExists
     }
 
+    // Function to check if the email exists in the database
+    fun isEmailExists(email: String): Boolean {
+        val db = this.readableDatabase
+        val selection = "$KEY_EMAIL = ?"
+        val selectionArgs = arrayOf(email)
+
+        return try {
+            val cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, null)
+            val emailExists = cursor.count > 0
+            cursor.close()
+            emailExists
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            false
+        } finally {
+            db.close()
+        }
+    }
+
+    fun updatePassword(email: String, newPassword: String): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(KEY_PASSWORD, newPassword)
+        }
+
+        val whereClause = "$KEY_EMAIL = ?"
+        val whereArgs = arrayOf(email)
+
+        val rowsAffected = db.update(TABLE_NAME, values, whereClause, whereArgs)
+        db.close()
+
+        return rowsAffected
+    }
+
     fun addInventory(
         user_id: Int,
         barcode: String,
