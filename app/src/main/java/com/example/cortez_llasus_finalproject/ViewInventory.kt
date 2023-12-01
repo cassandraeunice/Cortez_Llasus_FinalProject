@@ -60,7 +60,6 @@ class ViewInventory : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d("ViewInventory", "onResume")
-        // ...
     }
 
 }

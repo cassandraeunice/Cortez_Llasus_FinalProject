@@ -115,7 +115,6 @@
         android:layout_marginStart="47dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="48dp"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_default="wrap"

@@ -3,6 +3,7 @@ package com.example.cortez_llasus_finalproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -43,10 +44,13 @@ class AddProduct : AppCompatActivity() {
             val user_id = sessionManager.userId
 
             if (barcode.trim().isNotEmpty() && itemname.trim().isNotEmpty() &&
-                    category.trim().isNotEmpty() && quantity.trim().isNotEmpty() &&
-                    dateadded.trim().isNotEmpty() && user_id != -1){
-                    val success = dbHelper.addInventory(user_id, barcode, itemname, category, quantity, dateadded)
+                category.trim().isNotEmpty() && quantity.trim().isNotEmpty() &&
+                dateadded.trim().isNotEmpty() && user_id != -1) {
 
+                val result = dbHelper.addInventory(user_id, barcode, itemname, category, quantity, dateadded)
+
+                if (result != -1L) {
+                    // Insert successful
                     Toast.makeText(this, "Item added to the inventory", Toast.LENGTH_LONG).show()
 
                     val i = Intent(this, ViewInventory::class.java)
@@ -59,8 +63,13 @@ class AddProduct : AppCompatActivity() {
 
                     finish()
                 } else {
+                    // Insert failed
                     Toast.makeText(this, "Item is not added to the inventory. Try Again", Toast.LENGTH_LONG).show()
                 }
+            } else {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_LONG).show()
+            }
         }
+
     }
 }
