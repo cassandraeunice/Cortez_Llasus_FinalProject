@@ -5,7 +5,7 @@
     android:id="@+id/home_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF93AC">
+    android:background="@drawable/bg">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -29,11 +29,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="2dp"
-            android:fontFamily="@font/kgprimarypenmanship"
+            android:fontFamily="@font/poppinsbold"
             android:text="supplymate"
-            android:textColor="@color/white"
-            android:textSize="50sp"
-            android:textStyle="bold" />
+            android:textColor="#352B73"
+            android:textSize="35sp"/>
+
     </LinearLayout>
 
     <SearchView
@@ -53,9 +53,9 @@
         android:layout_height="55dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/homepagebtn"
-        android:backgroundTint="#FF2689"
-        android:fontFamily="@font/comingsoon"
+        android:backgroundTint="#352B73"
+        android:background="@drawable/rounded_corner"
+        android:fontFamily="@font/poppins"
         android:text="Choose a category"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -67,46 +67,53 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="119dp"
         android:layout_marginTop="31dp"
-        android:fontFamily="@font/kgprimarypenmanship"
+        android:fontFamily="@font/poppinsbold"
         android:text="Total View Count:"
-        android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textColor="#352B73"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393" />
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="106dp"
         android:layout_height="63dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/homepagebtn"
-        android:backgroundTint="#FF2689"
-        android:fontFamily="@font/comingsoon"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#352B73"
+        android:fontFamily="@font/poppins"
         android:text="Back"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.154"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listInventory" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.928" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="106dp"
         android:layout_height="63dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="46dp"
-        android:background="@drawable/homepagebtn"
-        android:backgroundTint="#FF2689"
-        android:fontFamily="@font/comingsoon"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#352B73"
+        android:fontFamily="@font/poppins"
         android:text="Save"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listInventory" />
+        app:layout_constraintHorizontal_bias="0.849"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.929" />
 
     <ListView
         android:id="@+id/listInventory"

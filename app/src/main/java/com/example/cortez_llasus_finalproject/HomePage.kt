@@ -31,7 +31,7 @@ class HomePage : AppCompatActivity() {
         val username = intent.getStringExtra("USERNAME")
         val welcomeTextView = binding.root.findViewById<TextView>(R.id.welcome_use)
 
-        val welcomeText = "Welcome, $username!"
+        val welcomeText = "Welcome, \n$username!"
         welcomeTextView.text = welcomeText
 
         val logoutButton = binding.root.findViewById<Button>(R.id.button)

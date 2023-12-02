@@ -44,7 +44,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 "$KEY_DATEADDED TEXT," +
                 "FOREIGN KEY($KEY_INVENTORY_ID) REFERENCES $TABLE_USER($KEY_ID))")
 
-                db?.execSQL(CREATE_USERS_TABLE)
+        db?.execSQL(CREATE_USERS_TABLE)
         db?.execSQL(CREATE_INVENTORY_TABLE)
     }
 

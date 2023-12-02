@@ -9,35 +9,35 @@
         android:id="@+id/textViewBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:fontFamily="@font/kgprimarypenmanship"/>
+        android:fontFamily="@font/poppins"/>
 
     <TextView
         android:id="@+id/textViewItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:fontFamily="@font/kgprimarypenmanship"/>
+        android:fontFamily="@font/poppins"/>
 
     <TextView
         android:id="@+id/textViewCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:fontFamily="@font/kgprimarypenmanship"/>
+        android:fontFamily="@font/poppins"/>
 
     <TextView
         android:id="@+id/textViewQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:fontFamily="@font/kgprimarypenmanship"/>
+        android:fontFamily="@font/poppins"/>
 
     <TextView
         android:id="@+id/textViewDateAdded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:fontFamily="@font/kgprimarypenmanship"/>
+        android:fontFamily="@font/poppins"/>
 </LinearLayout>
