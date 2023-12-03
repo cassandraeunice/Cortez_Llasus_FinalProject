@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:fontFamily="@font/poppinsbold"
-        android:gravity="center_horizontal|top"
+        android:gravity="start|top"
         android:text="Welcome!"
         android:textColor="#352B73"
         android:textSize="30sp"

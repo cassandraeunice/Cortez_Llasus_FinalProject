@@ -34,7 +34,7 @@ class HomePage : AppCompatActivity() {
         val welcomeText = "Welcome, \n$username!"
         welcomeTextView.text = welcomeText
 
-        val logoutButton = binding.root.findViewById<Button>(R.id.button)
+        val logoutButton = binding.root.findViewById<ImageButton>(R.id.button)
 
         logoutButton.setOnClickListener {
             val intent = Intent(this, LoginPage::class.java)
