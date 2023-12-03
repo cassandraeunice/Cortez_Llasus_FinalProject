@@ -164,9 +164,27 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
     }
 
+    fun updateInventoryItem(id: Long, itemName: String, category: String, quantity: String, dateAdded: String): Int {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(KEY_ITEMNAME, itemName)
+            put(KEY_CATEGORY, category)
+            put(KEY_QUANTITY, quantity)
+            put(KEY_DATEADDED, dateAdded)
+        }
 
+        // Define the WHERE clause to update the specific item by ID
+        val selection = "$KEY_INVENTORY_ID = ?"
+        val selectionArgs = arrayOf(id.toString())
 
+        // Perform the update
+        val rowsAffected = db.update(TABLE_INVENTORY, values, selection, selectionArgs)
 
+        // Close the database
+        db.close()
+
+        return rowsAffected
+    }
 
     @SuppressLint("Range")
     fun viewInventory(userId: Long): List<InventoryItem> {
@@ -203,7 +221,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                         val retrievedQuantity = it.getString(quantityIndex)
                         val retrievedDateAdded = it.getString(dateAddedIndex)
 
+                        // Convert the userId to String
                         val inventoryItem = InventoryItem(
+                            userId.toLong(),
                             retrievedBarcode,
                             retrievedItemName,
                             retrievedCategory,

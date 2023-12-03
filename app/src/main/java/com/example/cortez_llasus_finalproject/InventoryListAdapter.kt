@@ -1,4 +1,5 @@
 package com.example.cortez_llasus_finalproject
+
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,11 @@ class InventoryListAdapter(context: Context, arrayList: ArrayList<Any>) :
     ArrayAdapter<InventoryItem>(context, R.layout.list_item_inventory) {
 
     private var itemList: List<InventoryItem> = emptyList()
+    private var onItemClickListener: ((InventoryItem) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (InventoryItem) -> Unit) {
+        this.onItemClickListener = listener
+    }
 
     fun updateData(newList: List<InventoryItem>) {
         itemList = newList
@@ -36,13 +42,15 @@ class InventoryListAdapter(context: Context, arrayList: ArrayList<Any>) :
         quantityTextView.text = "Quantity: ${currentItem.quantity}"
         dateAddedTextView.text = "Date Added: ${currentItem.dateAdded}"
 
+        itemView.setOnClickListener {
+            onItemClickListener?.invoke(currentItem)
+        }
+
         return itemView
     }
 
     override fun getCount(): Int {
         return itemList.size
     }
-
 }
-
 
