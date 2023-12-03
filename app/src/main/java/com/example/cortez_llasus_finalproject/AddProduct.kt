@@ -45,7 +45,7 @@ class AddProduct : AppCompatActivity() {
 
             if (barcode.trim().isNotEmpty() && itemname.trim().isNotEmpty() &&
                 category.trim().isNotEmpty() && quantity.trim().isNotEmpty() &&
-                dateadded.trim().isNotEmpty() && user_id != -1) {
+                dateadded.trim().isNotEmpty() && user_id != -1L) {
 
                 val result = dbHelper.addInventory(user_id, barcode, itemname, category, quantity, dateadded)
 

@@ -12,7 +12,7 @@ import android.util.Log
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        private const val DATABASE_VERSION = 9
+        private const val DATABASE_VERSION = 11
         private const val DATABASE_NAME = "supplymateDB.db"
         private const val TABLE_USER = "UserInfo"
         private const val TABLE_INVENTORY = "InventoryInfo"
@@ -28,6 +28,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_DATEADDED = "dateAdded"
     }
 
+    private var currentUserId: Long = -1
+
+
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_USERS_TABLE = ("CREATE TABLE $TABLE_USER (" +
                 "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -36,7 +39,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 "$KEY_PASSWORD TEXT)")
 
         val CREATE_INVENTORY_TABLE = ("CREATE TABLE $TABLE_INVENTORY (" +
-                "$KEY_INVENTORY_ID INTEGER PRIMARY KEY," +
+                "$KEY_INVENTORY_ID INTEGER," +
                 "$KEY_BARCODE TEXT," +
                 "$KEY_ITEMNAME TEXT," +
                 "$KEY_CATEGORY TEXT," +
@@ -75,10 +78,28 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val cursor = db.query(TABLE_USER, null, selection, selectionArgs, null, null, null)
 
         val userExists = cursor.count > 0
+
+        if (userExists) {
+            cursor.moveToFirst()
+            currentUserId = cursor.getLong(cursor.getColumnIndex(KEY_ID))
+        }
+
         cursor.close()
+        db.close()
 
         return userExists
     }
+
+    // Function to set the current user ID after a successful login
+    fun setCurrentUserId(userId: Long) {
+        currentUserId = userId
+    }
+
+    // Function to reset the current user ID (logout)
+    fun resetCurrentUserId() {
+        currentUserId = -1
+    }
+
 
     // Function to check if the email exists in the database
     fun isEmailExists(email: String): Boolean {
@@ -115,7 +136,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     fun addInventory(
-        inventory_id: Int,
+        userId: Long,
         barcode: String,
         itemName: String,
         category: String,
@@ -126,7 +147,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         return try {
             val values = ContentValues().apply {
-                put(KEY_INVENTORY_ID, inventory_id)
+                put(KEY_INVENTORY_ID, userId)  // Set the user ID as the inventory ID
                 put(KEY_BARCODE, barcode)
                 put(KEY_ITEMNAME, itemName)
                 put(KEY_CATEGORY, category)
@@ -144,8 +165,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
 
+
+
+
     @SuppressLint("Range")
-    fun viewInventory(userId: Int): List<InventoryItem> {
+    fun viewInventory(userId: Long): List<InventoryItem> {
+        Log.d("ViewInventory", "Inventory ID for SQL Query: $userId")
         val inventoryList = mutableListOf<InventoryItem>()
 
         val db = this.readableDatabase

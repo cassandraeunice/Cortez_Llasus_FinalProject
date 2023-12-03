@@ -13,10 +13,10 @@ class SessionManager(context: Context) {
         private const val KEY_USER_ID = "user_id"
     }
 
-    var userId: Int
-        get() = sharedPreferences.getInt(KEY_USER_ID, -1)
+    var userId: Long
+        get() = sharedPreferences.getLong(KEY_USER_ID, -1)
         set(value) {
-            editor.putInt(KEY_USER_ID, value)
+            editor.putLong(KEY_USER_ID, value)
             editor.apply()
         }
 

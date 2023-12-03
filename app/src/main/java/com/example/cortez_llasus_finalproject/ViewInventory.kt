@@ -19,7 +19,7 @@ class ViewInventory : AppCompatActivity() {
 
         // Get the user_id using the session manager
         val userId = sessionManager.userId
-
+        Log.d("ViewInventory", "User ID before viewInventory: $userId")
         Log.d("ViewInventory", "Inventory ID from SessionManager: $userId")
 
 
@@ -34,7 +34,7 @@ class ViewInventory : AppCompatActivity() {
 
 
 
-    private fun viewInventory(view: View, userId: Int) {
+    private fun viewInventory(view: View, userId: Long) {
         val databaseHelper: DatabaseHelper = DatabaseHelper(this)
         val items: List<InventoryItem> = databaseHelper.viewInventory(userId)
 

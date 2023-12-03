@@ -3,6 +3,7 @@ package com.example.cortez_llasus_finalproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 
 class LoginPage : AppCompatActivity() {
@@ -35,7 +36,8 @@ class LoginPage : AppCompatActivity() {
                     val userId = dbHelper.getUserId(username)
 
                     // Store the user identifier in the SessionManager
-                    sessionManager.userId = userId.toInt()
+                    sessionManager.userId = userId.toInt().toLong()
+                    Log.d("LoginPage", "User ID in SessionManager: ${sessionManager.userId}")
 
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show()
 
