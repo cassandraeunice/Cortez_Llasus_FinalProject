@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ListView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class ViewInventory : AppCompatActivity() {
@@ -24,9 +22,14 @@ class ViewInventory : AppCompatActivity() {
         inventoryListAdapter = InventoryListAdapter(this, ArrayList())
 
         inventoryListAdapter.setOnItemClickListener { clickedItem ->
-            val intent = Intent(this, AddProduct::class.java)
+            val intent = Intent(this, UpdateProduct::class.java)
             intent.putExtra("SELECTED_ITEM", clickedItem)
             startActivity(intent)
+        }
+
+        inventoryListAdapter.setOnItemLongClickListener { longClickedItem ->
+            showDeleteConfirmationDialog(longClickedItem)
+            true
         }
 
         userId?.let { viewInventory(findViewById<View>(android.R.id.content), it) }
@@ -34,7 +37,6 @@ class ViewInventory : AppCompatActivity() {
         val btnBack = findViewById<Button>(R.id.btnBack)
 
         btnBack.setOnClickListener {
-
             finish()
         }
     }
@@ -49,9 +51,33 @@ class ViewInventory : AppCompatActivity() {
         listView.adapter = inventoryListAdapter
 
         listView.visibility = View.VISIBLE
-
     }
 
+    private fun showDeleteConfirmationDialog(itemToDelete: InventoryItem) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Item")
+            .setMessage("Are you sure you want to delete this item?")
+            .setPositiveButton("Yes") { _, _ ->
+                // Call deleteItem on the adapter to remove the item
+                inventoryListAdapter.deleteItem(itemToDelete)
+
+                // If needed, you can also delete the item from the database here
+                val userId = itemToDelete.inventory_id
+                userId?.let {
+                    val databaseHelper: DatabaseHelper = DatabaseHelper(this)
+                    val rowsAffected = databaseHelper.deleteInventoryItem(it)
+                    if (rowsAffected > 0) {
+                        // Item deleted successfully
+                        Log.d("ViewInventory", "Item deleted from the database")
+                    } else {
+                        // Failed to delete item, handle accordingly
+                        Log.d("ViewInventory", "Failed to delete item from the database")
+                    }
+                }
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
 
     override fun onResume() {
         super.onResume()

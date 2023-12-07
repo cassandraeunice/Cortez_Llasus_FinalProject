@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Cortez_Llasus_FinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateProduct"
+            android:exported="false" />
+        <activity
             android:name=".PasswordReset"
             android:exported="false" />
         <activity

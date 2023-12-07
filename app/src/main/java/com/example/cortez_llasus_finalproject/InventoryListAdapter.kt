@@ -12,9 +12,14 @@ class InventoryListAdapter(context: Context, private var itemList: MutableList<I
     ArrayAdapter<InventoryItem>(context, R.layout.list_item_inventory) {
 
     private var onItemClickListener: ((InventoryItem) -> Unit)? = null
+    private var onItemLongClickListener: ((InventoryItem) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (InventoryItem) -> Unit) {
         this.onItemClickListener = listener
+    }
+
+    fun setOnItemLongClickListener(listener: (InventoryItem) -> Unit) {
+        this.onItemLongClickListener = listener
     }
 
     fun updateData(newList: List<InventoryItem>) {
@@ -22,6 +27,11 @@ class InventoryListAdapter(context: Context, private var itemList: MutableList<I
         itemList.addAll(newList)
         notifyDataSetChanged()
         Log.d("InventoryListAdapter", "Updated with ${itemList.size} items")
+    }
+
+    fun deleteItem(itemToDelete: InventoryItem) {
+        itemList.remove(itemToDelete)
+        notifyDataSetChanged()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -44,6 +54,11 @@ class InventoryListAdapter(context: Context, private var itemList: MutableList<I
 
         itemView.setOnClickListener {
             onItemClickListener?.invoke(currentItem)
+        }
+
+        itemView.setOnLongClickListener {
+            onItemLongClickListener?.invoke(currentItem)
+            true
         }
 
         return itemView

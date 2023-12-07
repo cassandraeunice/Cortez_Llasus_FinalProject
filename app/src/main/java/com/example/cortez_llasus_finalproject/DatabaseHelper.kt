@@ -20,6 +20,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_USERNAME = "username"
         private const val KEY_EMAIL = "email"
         private const val KEY_PASSWORD = "password"
+
+
         private const val KEY_INVENTORY_ID = "inventory_id"
         private const val KEY_BARCODE = "barcode"
         private const val KEY_ITEMNAME = "itemName"
@@ -184,6 +186,22 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.close()
 
         return rowsAffected
+    }
+
+    fun deleteInventoryItem(inventoryId: Long): Int {
+        val db = this.writableDatabase
+
+        try {
+            val whereClause = "$KEY_INVENTORY_ID = ?"
+            val whereArgs = arrayOf(inventoryId.toString())
+
+            return db.delete(TABLE_INVENTORY, whereClause, whereArgs)
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            return -1 // Return -1 to indicate failure
+        } finally {
+            db.close()
+        }
     }
 
     @SuppressLint("Range")
