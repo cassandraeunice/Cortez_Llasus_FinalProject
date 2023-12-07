@@ -105,6 +105,14 @@ class AddProduct : AppCompatActivity() {
             quantityEditText.setText(selectedItem.quantity)
             dateaddedEditText.setText(selectedItem.dateAdded)
         }
+
+        val btnBack = findViewById<Button>(R.id.btnBack)
+
+        btnBack.setOnClickListener {
+            val intent = Intent(this, HomePage::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
 

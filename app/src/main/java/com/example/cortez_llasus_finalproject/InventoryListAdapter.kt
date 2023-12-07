@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class InventoryListAdapter(context: Context, arrayList: ArrayList<Any>) :
+class InventoryListAdapter(context: Context, private var itemList: MutableList<InventoryItem>) :
     ArrayAdapter<InventoryItem>(context, R.layout.list_item_inventory) {
 
-    private var itemList: List<InventoryItem> = emptyList()
     private var onItemClickListener: ((InventoryItem) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (InventoryItem) -> Unit) {
@@ -19,7 +18,8 @@ class InventoryListAdapter(context: Context, arrayList: ArrayList<Any>) :
     }
 
     fun updateData(newList: List<InventoryItem>) {
-        itemList = newList
+        itemList.clear()
+        itemList.addAll(newList)
         notifyDataSetChanged()
         Log.d("InventoryListAdapter", "Updated with ${itemList.size} items")
     }
@@ -53,4 +53,3 @@ class InventoryListAdapter(context: Context, arrayList: ArrayList<Any>) :
         return itemList.size
     }
 }
-

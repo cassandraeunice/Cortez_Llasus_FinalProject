@@ -1,10 +1,12 @@
 package com.example.cortez_llasus_finalproject
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,13 @@ class ViewInventory : AppCompatActivity() {
         }
 
         userId?.let { viewInventory(findViewById<View>(android.R.id.content), it) }
+
+        val btnBack = findViewById<Button>(R.id.btnBack)
+
+        btnBack.setOnClickListener {
+
+            finish()
+        }
     }
 
     private fun viewInventory(view: View, userId: Long) {
@@ -40,7 +49,9 @@ class ViewInventory : AppCompatActivity() {
         listView.adapter = inventoryListAdapter
 
         listView.visibility = View.VISIBLE
+
     }
+
 
     override fun onResume() {
         super.onResume()
