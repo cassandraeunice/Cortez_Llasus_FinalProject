@@ -188,12 +188,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return rowsAffected
     }
 
-    fun deleteInventoryItem(inventoryId: Long): Int {
+    fun deleteInventoryItem(barcode: String): Int {
         val db = this.writableDatabase
 
         try {
-            val whereClause = "$KEY_INVENTORY_ID = ?"
-            val whereArgs = arrayOf(inventoryId.toString())
+            val whereClause = "$KEY_BARCODE = ?"
+            val whereArgs = arrayOf(barcode)
 
             return db.delete(TABLE_INVENTORY, whereClause, whereArgs)
         } catch (e: SQLException) {

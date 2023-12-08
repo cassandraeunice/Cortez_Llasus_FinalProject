@@ -18,9 +18,6 @@
             android:name=".UpdateProduct"
             android:exported="false" />
         <activity
-            android:name=".PasswordReset"
-            android:exported="false" />
-        <activity
             android:name=".ForgotPassword"
             android:exported="false" />
         <activity

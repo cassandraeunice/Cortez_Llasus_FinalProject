@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 
-class ViewInventory : AppCompatActivity() {
+class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
     private lateinit var inventoryListAdapter: InventoryListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,8 @@ class ViewInventory : AppCompatActivity() {
         val btnBack = findViewById<Button>(R.id.btnBack)
 
         btnBack.setOnClickListener {
-            finish()
+            val intent = Intent(this, HomePage::class.java)
+            startActivity(intent)
         }
     }
 
@@ -62,8 +63,8 @@ class ViewInventory : AppCompatActivity() {
                 inventoryListAdapter.deleteItem(itemToDelete)
 
                 // If needed, you can also delete the item from the database here
-                val userId = itemToDelete.inventory_id
-                userId?.let {
+                val barcode = itemToDelete.barcode
+                barcode?.let {
                     val databaseHelper: DatabaseHelper = DatabaseHelper(this)
                     val rowsAffected = databaseHelper.deleteInventoryItem(it)
                     if (rowsAffected > 0) {
@@ -83,4 +84,15 @@ class ViewInventory : AppCompatActivity() {
         super.onResume()
         Log.d("ViewInventory", "onResume")
     }
+
+    override fun onItemDeleted() {
+        // Refresh the list view after deleting an item
+        refreshListView()
+    }
+
+    private fun refreshListView() {
+        // Refresh the list view by updating the data
+        inventoryListAdapter.notifyDataSetChanged()
+    }
+
 }

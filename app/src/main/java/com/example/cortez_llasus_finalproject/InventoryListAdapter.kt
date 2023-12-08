@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class InventoryListAdapter(context: Context, private var itemList: MutableList<InventoryItem>) :
-    ArrayAdapter<InventoryItem>(context, R.layout.list_item_inventory) {
+class InventoryListAdapter(
+    context: Context,
+    private var itemList: MutableList<InventoryItem>,
+    private var onItemDeletedListener: OnItemDeletedListener? = null
+) : ArrayAdapter<InventoryItem>(context, R.layout.list_item_inventory), OnItemDeletedListener {
 
     private var onItemClickListener: ((InventoryItem) -> Unit)? = null
     private var onItemLongClickListener: ((InventoryItem) -> Unit)? = null
@@ -32,6 +35,7 @@ class InventoryListAdapter(context: Context, private var itemList: MutableList<I
     fun deleteItem(itemToDelete: InventoryItem) {
         itemList.remove(itemToDelete)
         notifyDataSetChanged()
+        onItemDeletedListener?.onItemDeleted()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -66,5 +70,9 @@ class InventoryListAdapter(context: Context, private var itemList: MutableList<I
 
     override fun getCount(): Int {
         return itemList.size
+    }
+
+    override fun onItemDeleted() {
+
     }
 }

@@ -55,7 +55,7 @@ class UpdateProduct : AppCompatActivity() {
 
     private fun deleteSelectedItem() {
         if (selectedItem != null) {
-            val rowsAffected = dbHelper.deleteInventoryItem(selectedItem!!.inventory_id)
+            val rowsAffected = dbHelper.deleteInventoryItem(selectedItem!!.barcode)
             if (rowsAffected > 0) {
                 // Item deleted successfully
                 finish() // Close the activity after deletion
