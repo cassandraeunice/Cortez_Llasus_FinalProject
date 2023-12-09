@@ -212,62 +212,8 @@
 
     <EditText
         android:id="@+id/etName"
-        android:layout_width="240dp"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:ems="10"
-        android:fontFamily="@font/poppins"
-        android:inputType="text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/myImageView"
-        app:layout_constraintEnd_toEndOf="@id/myImageView"
-        app:layout_constraintHorizontal_bias="0.861"
-        app:layout_constraintStart_toStartOf="@id/myImageView"
-        app:layout_constraintTop_toTopOf="@id/myImageView"
-        app:layout_constraintVertical_bias="0.033" />
-
-    <EditText
-        android:id="@+id/etCategory"
-        android:layout_width="211dp"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:ems="10"
-        android:fontFamily="@font/poppins"
-        android:inputType="text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/myImageView"
-        app:layout_constraintEnd_toEndOf="@id/myImageView"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintStart_toStartOf="@id/myImageView"
-        app:layout_constraintTop_toTopOf="@id/myImageView"
-        app:layout_constraintVertical_bias="0.288" />
-
-    <EditText
-        android:id="@+id/etQuantity"
-        android:layout_width="218dp"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:ems="10"
-        android:fontFamily="@font/poppins"
-        android:inputType="text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/myImageView"
-        app:layout_constraintEnd_toEndOf="@id/myImageView"
-        app:layout_constraintHorizontal_bias="0.939"
-        app:layout_constraintStart_toStartOf="@id/myImageView"
-        app:layout_constraintTop_toTopOf="@id/myImageView"
-        app:layout_constraintVertical_bias="0.525" />
-
-    <EditText
-        android:id="@+id/etDateAdded"
-        android:layout_width="186dp"
-        android:layout_height="45dp"
+        android:layout_width="248dp"
+        android:layout_height="34dp"
         android:background="@null"
         android:ems="10"
         android:fontFamily="@font/poppins"
@@ -280,7 +226,61 @@
         app:layout_constraintHorizontal_bias="0.925"
         app:layout_constraintStart_toStartOf="@id/myImageView"
         app:layout_constraintTop_toTopOf="@id/myImageView"
-        app:layout_constraintVertical_bias="0.76" />
+        app:layout_constraintVertical_bias="0.081" />
+
+    <EditText
+        android:id="@+id/etCategory"
+        android:layout_width="211dp"
+        android:layout_height="34dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:inputType="text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/myImageView"
+        app:layout_constraintEnd_toEndOf="@id/myImageView"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="@id/myImageView"
+        app:layout_constraintTop_toTopOf="@id/myImageView"
+        app:layout_constraintVertical_bias="0.304" />
+
+    <EditText
+        android:id="@+id/etQuantity"
+        android:layout_width="218dp"
+        android:layout_height="34dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:inputType="text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/myImageView"
+        app:layout_constraintEnd_toEndOf="@id/myImageView"
+        app:layout_constraintHorizontal_bias="0.939"
+        app:layout_constraintStart_toStartOf="@id/myImageView"
+        app:layout_constraintTop_toTopOf="@id/myImageView"
+        app:layout_constraintVertical_bias="0.536" />
+
+    <EditText
+        android:id="@+id/etDateAdded"
+        android:layout_width="186dp"
+        android:layout_height="34dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:inputType="text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/myImageView"
+        app:layout_constraintEnd_toEndOf="@id/myImageView"
+        app:layout_constraintHorizontal_bias="0.952"
+        app:layout_constraintStart_toStartOf="@id/myImageView"
+        app:layout_constraintTop_toTopOf="@id/myImageView"
+        app:layout_constraintVertical_bias="0.763" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

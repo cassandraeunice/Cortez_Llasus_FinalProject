@@ -166,7 +166,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
     }
 
-    fun updateInventoryItem(id: Long, itemName: String, category: String, quantity: String, dateAdded: String): Int {
+    fun updateInventoryItem(barcode: String, itemName: String, category: String, quantity: String, dateAdded: String): Int {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put(KEY_ITEMNAME, itemName)
@@ -177,7 +177,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         // Define the WHERE clause to update the specific item by ID
         val selection = "$KEY_BARCODE = ?"
-        val selectionArgs = arrayOf(id.toString())
+        val selectionArgs = arrayOf(barcode)
 
         // Perform the update
         val rowsAffected = db.update(TABLE_INVENTORY, values, selection, selectionArgs)

@@ -59,7 +59,7 @@ class HomePage : AppCompatActivity() {
             if (isGranted) {
                 showCamera()
             } else {
-                // Explain why permission is needed (e.g., toast)
+                Toast.makeText(this, "Camera is required to access this feature. Check your settings.", Toast.LENGTH_LONG).show()
             }
         }
 
