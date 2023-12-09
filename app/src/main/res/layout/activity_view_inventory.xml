@@ -37,12 +37,12 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textViewTotalCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
         android:fontFamily="@font/poppinsbold"
-        android:text="Total View Count:"
+        android:text="Total View Count: 0"
         android:textColor="#352B73"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -82,7 +82,7 @@
         app:layout_constraintHeight_default="wrap"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTotalCount"
         app:layout_constraintVertical_bias="0.041"
         app:layout_constraintWidth_default="wrap" />
 

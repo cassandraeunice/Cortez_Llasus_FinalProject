@@ -176,7 +176,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
 
         // Define the WHERE clause to update the specific item by ID
-        val selection = "$KEY_INVENTORY_ID = ?"
+        val selection = "$KEY_BARCODE = ?"
         val selectionArgs = arrayOf(id.toString())
 
         // Perform the update

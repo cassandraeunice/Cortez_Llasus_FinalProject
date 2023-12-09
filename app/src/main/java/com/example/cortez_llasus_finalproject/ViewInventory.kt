@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
@@ -52,6 +53,10 @@ class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
         listView.adapter = inventoryListAdapter
 
         listView.visibility = View.VISIBLE
+
+        val totalCount = items.size
+        val textViewTotalCount = findViewById<TextView>(R.id.textViewTotalCount)
+        textViewTotalCount.text = "Total Inventory Count: $totalCount"
     }
 
     private fun showDeleteConfirmationDialog(itemToDelete: InventoryItem) {
