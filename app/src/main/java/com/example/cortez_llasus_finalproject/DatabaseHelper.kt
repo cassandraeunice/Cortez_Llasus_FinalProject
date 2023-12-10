@@ -28,6 +28,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_CATEGORY = "category"
         private const val KEY_QUANTITY = "quantity"
         private const val KEY_DATEADDED = "dateAdded"
+
+        const val EMAIL_ALREADY_IN_USE = -2L
     }
 
     private var currentUserId: Long = -1
@@ -68,7 +70,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
 
         val success = db.insert(TABLE_USER, null, values)
-        db.close()
+
 
         return success
     }
