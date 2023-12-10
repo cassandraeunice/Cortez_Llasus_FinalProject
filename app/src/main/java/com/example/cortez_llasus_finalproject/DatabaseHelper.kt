@@ -42,7 +42,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val CREATE_INVENTORY_TABLE = ("CREATE TABLE $TABLE_INVENTORY (" +
                 "$KEY_INVENTORY_ID INTEGER," +
-                "$KEY_BARCODE TEXT," +
+                "$KEY_BARCODE INTEGER," +
                 "$KEY_ITEMNAME TEXT," +
                 "$KEY_CATEGORY TEXT," +
                 "$KEY_QUANTITY TEXT," +
@@ -139,7 +139,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     fun addInventory(
         userId: Long,
-        barcode: String,
+        barcode: Int,
         itemName: String,
         category: String,
         quantity: String,
@@ -166,7 +166,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
     }
 
-    fun updateInventoryItem(barcode: String, itemName: String, category: String, quantity: String, dateAdded: String): Int {
+    fun updateInventoryItem(barcode: Int, itemName: String, category: String, quantity: String, dateAdded: String): Int {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put(KEY_ITEMNAME, itemName)
@@ -177,7 +177,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         // Define the WHERE clause to update the specific item by ID
         val selection = "$KEY_BARCODE = ?"
-        val selectionArgs = arrayOf(barcode)
+        val selectionArgs = arrayOf(barcode.toString())
 
         // Perform the update
         val rowsAffected = db.update(TABLE_INVENTORY, values, selection, selectionArgs)
@@ -188,20 +188,47 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return rowsAffected
     }
 
-    fun deleteInventoryItem(barcode: String): Int {
+    fun deleteInventoryItem(barcode: Int): Int {
         val db = this.writableDatabase
 
-        try {
+        return try {
             val whereClause = "$KEY_BARCODE = ?"
-            val whereArgs = arrayOf(barcode)
+            val whereArgs = arrayOf(barcode.toString()) // Ensure that barcode is an Int
 
-            return db.delete(TABLE_INVENTORY, whereClause, whereArgs)
+            db.delete(TABLE_INVENTORY, whereClause, whereArgs)
         } catch (e: SQLException) {
             e.printStackTrace()
-            return -1 // Return -1 to indicate failure
+            -1 // Return -1 to indicate failure
         } finally {
             db.close()
         }
+    }
+
+    // Additional method to retrieve barcode for a specific position in the list
+    fun getBarcodeAtPosition(userId: Long, position: Int): String? {
+        val db = this.readableDatabase
+        val select = "SELECT $KEY_BARCODE FROM $TABLE_INVENTORY WHERE $KEY_INVENTORY_ID = ?"
+        var cursor: Cursor? = null
+
+        try {
+            cursor = db.rawQuery(select, arrayOf(userId.toString()))
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            return null
+        }
+
+        cursor?.use {
+            if (it.moveToPosition(position)) {
+                val barcodeIndex = it.getColumnIndex(KEY_BARCODE)
+                return if (barcodeIndex >= 0) {
+                    it.getString(barcodeIndex)
+                } else {
+                    null
+                }
+            }
+        }
+
+        return null
     }
 
     @SuppressLint("Range")
@@ -233,7 +260,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 // Check if column indices are valid
                 if (barcodeIndex >= 0 && itemNameIndex >= 0 && categoryIndex >= 0 && quantityIndex >= 0 && dateAddedIndex >= 0) {
                     do {
-                        val retrievedBarcode = it.getString(barcodeIndex)
+                        val retrievedBarcode = it.getInt(barcodeIndex)
                         val retrievedItemName = it.getString(itemNameIndex)
                         val retrievedCategory = it.getString(categoryIndex)
                         val retrievedQuantity = it.getString(quantityIndex)

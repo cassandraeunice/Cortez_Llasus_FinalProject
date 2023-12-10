@@ -28,8 +28,11 @@ class HomePage : AppCompatActivity() {
         // Initialize binding
         initBinding()
 
-        val username = intent.getStringExtra("USERNAME")
+        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString("USERNAME", "")
+
         val welcomeTextView = binding.root.findViewById<TextView>(R.id.welcome_use)
+
 
         val welcomeText = "Welcome, \n$username!"
         welcomeTextView.text = welcomeText
@@ -46,20 +49,16 @@ class HomePage : AppCompatActivity() {
 
         btnView.setOnClickListener {
             val intent = Intent(this, ViewInventory::class.java)
+            intent.putExtra("USERNAME", username)
             startActivity(intent)
         }
 
-        val btnAdd = findViewById<ImageButton>(R.id.miniBtnAdd)
-
-        btnAdd.setOnClickListener {
-            val intent = Intent(this, AddProduct::class.java)
-            startActivity(intent)
-        }
 
         val mbtnView = findViewById<ImageButton>(R.id.miniBtnView)
 
         mbtnView.setOnClickListener {
             val intent = Intent(this, ViewInventory::class.java)
+            intent.putExtra("USERNAME", username)
             startActivity(intent)
         }
 
@@ -102,8 +101,13 @@ class HomePage : AppCompatActivity() {
 
     private fun initViews() {
         val btnScan = findViewById<ImageButton>(R.id.btnScan)
+        val btnAdd = findViewById<ImageButton>(R.id.miniBtnAdd)
 
         btnScan.setOnClickListener {
+            checkPermissionCamera(this)
+        }
+
+        btnAdd.setOnClickListener {
             checkPermissionCamera(this)
         }
     }

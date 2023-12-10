@@ -49,7 +49,18 @@ class AddProduct : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                val result = dbHelper.addInventory(user_id, barcode, itemname, category, quantity, dateadded)
+
+                val barcode = textResult.text.toString()
+
+                val barcodeInt = try {
+                    barcode.toInt()
+                } catch (e: NumberFormatException) {
+                    // Handle the case where barcode is not a valid integer
+                    Toast.makeText(this, "Invalid barcode format. Please enter a valid integer.", Toast.LENGTH_LONG).show()
+                    return@setOnClickListener
+                }
+
+                val result = dbHelper.addInventory(user_id, barcodeInt, itemname, category, quantity, dateadded)
 
                 if (result != -1L) {
                             // Insert successful

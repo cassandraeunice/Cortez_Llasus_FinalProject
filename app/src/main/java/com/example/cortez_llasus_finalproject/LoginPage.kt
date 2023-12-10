@@ -1,5 +1,6 @@
 package com.example.cortez_llasus_finalproject
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -35,14 +36,16 @@ class LoginPage : AppCompatActivity() {
                     // Get the user identifier from your database (replace with your logic)
                     val userId = dbHelper.getUserId(username)
 
-                    // Store the user identifier in the SessionManager
-                    sessionManager.userId = userId.toInt().toLong()
-                    Log.d("LoginPage", "User ID in SessionManager: ${sessionManager.userId}")
+                    // Store the user identifier in SharedPreferences
+                    val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putLong("USER_ID", userId.toInt().toLong())
+                    editor.putString("USERNAME", username)
+                    editor.apply()
 
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show()
 
                     val i = Intent(this, HomePage::class.java)
-                    i.putExtra("USERNAME", username)  // Move this line here
                     startActivity(i)
 
                     unameEditText.text.clear()

@@ -5,12 +5,14 @@ import android.content.SharedPreferences
 
 class SessionManager(context: Context) {
 
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
     companion object {
         private const val PREF_NAME = "UserSession"
         private const val KEY_USER_ID = "user_id"
+        private const val KEY_USERNAME = "username"
     }
 
     var userId: Long
@@ -20,8 +22,14 @@ class SessionManager(context: Context) {
             editor.apply()
         }
 
+    var username: String?
+        get() = sharedPreferences.getString(KEY_USERNAME, null)
+        set(value) {
+            editor.putString(KEY_USERNAME, value)
+            editor.apply()
+        }
+
     fun logout() {
         editor.clear()
         editor.apply()
-    }
-}
+    }}

@@ -94,7 +94,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:background="@drawable/rounded_corner"
-        android:fontFamily="@font/kgprimarypenmanship"
+        android:fontFamily="@font/poppins"
         android:gravity="center"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
