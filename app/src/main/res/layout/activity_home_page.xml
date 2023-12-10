@@ -83,6 +83,7 @@
         app:layout_constraintVertical_bias="0.993" />
 
     <ImageButton
+        android:id="@+id/miniBtnAdd"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/homepagebtn"
@@ -96,6 +97,7 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <ImageButton
+        android:id="@+id/btnLogout"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/homepagebtn"
@@ -109,7 +111,7 @@
         app:layout_constraintVertical_bias="0.976" />
 
     <ImageButton
-        android:id="@+id/button"
+        android:id="@+id/miniBtnView"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/homepagebtn"

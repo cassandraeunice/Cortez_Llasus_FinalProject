@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
     private lateinit var inventoryListAdapter: InventoryListAdapter
+    private var userId: Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,28 @@ class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
             val intent = Intent(this, HomePage::class.java)
             startActivity(intent)
         }
+
+        val btnRefresh = findViewById<ImageButton>(R.id.refresh)
+
+        btnRefresh.setOnClickListener {
+            refreshView()
+        }
+    }
+
+    private fun refreshView() {
+        val databaseHelper: DatabaseHelper = DatabaseHelper(this)
+        val items: List<InventoryItem> = databaseHelper.viewInventory(userId)
+
+        inventoryListAdapter.updateData(items)
+        inventoryListAdapter.notifyDataSetChanged()
+
+        updateTotalCount(items)
+    }
+
+    private fun updateTotalCount(items: List<InventoryItem>) {
+        val totalCount = items.size
+        val textViewTotalCount = findViewById<TextView>(R.id.textViewTotalCount)
+        textViewTotalCount.text = "Total Inventory Count: $totalCount"
     }
 
     private fun viewInventory(view: View, userId: Long) {
@@ -75,6 +99,8 @@ class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
                     if (rowsAffected > 0) {
                         // Item deleted successfully
                         Log.d("ViewInventory", "Item deleted from the database")
+                        // Refresh the view after deletion
+                        viewInventory(findViewById<View>(android.R.id.content), userId)
                     } else {
                         // Failed to delete item, handle accordingly
                         Log.d("ViewInventory", "Failed to delete item from the database")
@@ -91,13 +117,8 @@ class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
     }
 
     override fun onItemDeleted() {
-        // Refresh the list view after deleting an item
-        refreshListView()
+
     }
 
-    private fun refreshListView() {
-        // Refresh the list view by updating the data
-        inventoryListAdapter.notifyDataSetChanged()
-    }
 
 }

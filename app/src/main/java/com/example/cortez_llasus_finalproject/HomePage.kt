@@ -34,7 +34,7 @@ class HomePage : AppCompatActivity() {
         val welcomeText = "Welcome, \n$username!"
         welcomeTextView.text = welcomeText
 
-        val logoutButton = binding.root.findViewById<ImageButton>(R.id.button)
+        val logoutButton = binding.root.findViewById<ImageButton>(R.id.btnLogout)
 
         logoutButton.setOnClickListener {
             val intent = Intent(this, LoginPage::class.java)
@@ -45,6 +45,20 @@ class HomePage : AppCompatActivity() {
         val btnView = binding.btnView
 
         btnView.setOnClickListener {
+            val intent = Intent(this, ViewInventory::class.java)
+            startActivity(intent)
+        }
+
+        val btnAdd = findViewById<ImageButton>(R.id.miniBtnAdd)
+
+        btnAdd.setOnClickListener {
+            val intent = Intent(this, AddProduct::class.java)
+            startActivity(intent)
+        }
+
+        val mbtnView = findViewById<ImageButton>(R.id.miniBtnView)
+
+        mbtnView.setOnClickListener {
             val intent = Intent(this, ViewInventory::class.java)
             startActivity(intent)
         }

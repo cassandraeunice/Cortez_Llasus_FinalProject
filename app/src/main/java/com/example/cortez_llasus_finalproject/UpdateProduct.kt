@@ -113,10 +113,10 @@ class UpdateProduct : AppCompatActivity() {
             )
 
             if (rowsAffected > 0) {
-                Toast.makeText(this, "Item updated in the inventory.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Item updated successfully.", Toast.LENGTH_LONG).show()
                 finish()
             } else {
-                Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Failed to update item. Please fill in all fields.", Toast.LENGTH_LONG).show()
             }
         }
     }
