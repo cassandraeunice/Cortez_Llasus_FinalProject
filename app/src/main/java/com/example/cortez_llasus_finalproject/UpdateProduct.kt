@@ -29,7 +29,7 @@ class UpdateProduct : AppCompatActivity() {
 
         selectedItem = intent.getSerializableExtra("SELECTED_ITEM") as? InventoryItem
         if (selectedItem != null) {
-            // Fill the corresponding fields with the selected item data
+
             textResult.text = selectedItem?.barcode.toString()
             itemNameEditText.setText(selectedItem?.itemName)
             categoryEditText.setText(selectedItem?.category)
@@ -91,13 +91,11 @@ class UpdateProduct : AppCompatActivity() {
         val quantity = quantityEditText.text.toString()
         val dateAdded = dateaddedEditText.text.toString()
 
-        // Validate quantity as an integer
         if (quantity.toIntOrNull() == null) {
             Toast.makeText(this, "Quantity must be a valid integer", Toast.LENGTH_LONG).show()
             return
         }
 
-        // Validate date format
         if (!isValidDateFormat(dateAdded)) {
             Toast.makeText(this, "Invalid date format. Please use MM/DD/YY", Toast.LENGTH_LONG).show()
             return

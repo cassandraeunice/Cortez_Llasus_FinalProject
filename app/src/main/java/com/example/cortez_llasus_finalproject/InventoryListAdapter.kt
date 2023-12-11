@@ -35,7 +35,6 @@ class InventoryListAdapter(
     fun deleteItem(itemToDelete: InventoryItem) {
         val barcodeToDelete = itemToDelete.barcode
 
-        // Remove the item from the list based on the barcode
         itemList.removeAll { it.barcode == barcodeToDelete }
 
         notifyDataSetChanged()

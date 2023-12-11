@@ -17,13 +17,12 @@ import com.journeyapps.barcodescanner.ScanOptions
 
 class HomePage : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomePageBinding // Assuming you have HomePageBinding class
+    private lateinit var binding: ActivityHomePageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
 
-        // Initialize binding
         initBinding()
 
         val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
@@ -60,7 +59,6 @@ class HomePage : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Initialize scanner views
         initViews()
     }
 

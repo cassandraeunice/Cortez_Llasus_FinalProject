@@ -3,7 +3,7 @@
     <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView">
      <!--   <item name="android:textColorHint">@color/hint</item> -->
         <item name="android:editTextColor">@color/white</item>
-        <item name="android:fontFamily">@font/kgprimarypenmanship</item>
+        <item name="android:fontFamily">@font/poppins</item>
       <!--  <item name="android:textSize">@dimen/text_size</item> -->
       <!--  <item name="queryHint">@string/edit_text_hint</item> -->
         <item name="iconifiedByDefault">false</item>

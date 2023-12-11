@@ -94,18 +94,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return userExists
     }
 
-    // Function to set the current user ID after a successful login
     fun setCurrentUserId(userId: Long) {
         currentUserId = userId
     }
 
-    // Function to reset the current user ID (logout)
     fun resetCurrentUserId() {
         currentUserId = -1
     }
 
 
-    // Function to check if the email exists in the database
     fun isEmailExists(email: String): Boolean {
         val db = this.readableDatabase
         val selection = "$KEY_EMAIL = ?"
@@ -177,14 +174,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_DATEADDED, dateAdded)
         }
 
-        // Define the WHERE clause to update the specific item by ID
         val selection = "$KEY_BARCODE = ?"
         val selectionArgs = arrayOf(barcode.toString())
 
-        // Perform the update
         val rowsAffected = db.update(TABLE_INVENTORY, values, selection, selectionArgs)
 
-        // Close the database
         db.close()
 
         return rowsAffected
@@ -200,13 +194,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             db.delete(TABLE_INVENTORY, whereClause, whereArgs)
         } catch (e: SQLException) {
             e.printStackTrace()
-            -1 // Return -1 to indicate failure
+            -1
         } finally {
             db.close()
         }
     }
 
-    // Additional method to retrieve barcode for a specific position in the list
     fun getBarcodeAtPosition(userId: Long, position: Int): String? {
         val db = this.readableDatabase
         val select = "SELECT $KEY_BARCODE FROM $TABLE_INVENTORY WHERE $KEY_INVENTORY_ID = ?"
@@ -259,7 +252,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 val quantityIndex = it.getColumnIndex(KEY_QUANTITY)
                 val dateAddedIndex = it.getColumnIndex(KEY_DATEADDED)
 
-                // Check if column indices are valid
                 if (barcodeIndex >= 0 && itemNameIndex >= 0 && categoryIndex >= 0 && quantityIndex >= 0 && dateAddedIndex >= 0) {
                     do {
                         val retrievedBarcode = it.getInt(barcodeIndex)
@@ -268,7 +260,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                         val retrievedQuantity = it.getString(quantityIndex)
                         val retrievedDateAdded = it.getString(dateAddedIndex)
 
-                        // Convert the userId to String
                         val inventoryItem = InventoryItem(
                             userId.toLong(),
                             retrievedBarcode,
@@ -281,7 +272,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
                     } while (it.moveToNext())
                 } else {
-                    // Log an error or handle the case where a column index is invalid
+
                     Log.e("ViewInventory", "Invalid column index")
                 }
             }
@@ -295,9 +286,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.readableDatabase
         val selection = "$KEY_USERNAME = ?"
         val selectionArgs = arrayOf(username)
-        val columns = arrayOf(KEY_ID) // Corrected the column name
+        val columns = arrayOf(KEY_ID)
 
-        var userId: Long = -1 // Default value in case of failure
+        var userId: Long = -1
 
         try {
             val cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null)

@@ -36,13 +36,12 @@ class ForgotPassword : AppCompatActivity() {
                 val success = dbHelper.isEmailExists(email)
                 if (isValidPassword(newPassword)) {
                     if (success) {
-                        // Update the password in the database
+
                         val rowsAffected = dbHelper.updatePassword(email, newPassword)
 
                         if (rowsAffected > 0) {
                             Toast.makeText(this, "Password updated successfully", Toast.LENGTH_LONG).show()
 
-                            // Redirect to the login page or any other appropriate activity
                             val i = Intent(this, LoginPage::class.java)
                             startActivity(i)
                             finish()

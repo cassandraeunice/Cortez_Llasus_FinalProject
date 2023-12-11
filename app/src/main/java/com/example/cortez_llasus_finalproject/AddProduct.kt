@@ -11,11 +11,11 @@ class AddProduct : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_product)
-        // Find the TextView in the layout of AddProduct
+
         val textResult = findViewById<TextView>(R.id.textResult)
-        // Retrieve the scanned result from the intent
+
         val scannedResult = intent.getStringExtra("SCAN_RESULT")
-        // Set the text of the TextView
+
         textResult.text = scannedResult
         var itemNameEditText = findViewById<EditText>(R.id.etName)
         var categoryEditText = findViewById<EditText>(R.id.etCategory)
@@ -29,7 +29,7 @@ class AddProduct : AppCompatActivity() {
             val category = categoryEditText.text.toString()
             val quantity = quantityEditText.text.toString()
             val dateadded = dateaddedEditText.text.toString()
-            // Assuming you have a session manager to get the user_id
+
             val sessionManager = SessionManager(this)
             val user_id = sessionManager.userId
 
@@ -37,13 +37,11 @@ class AddProduct : AppCompatActivity() {
                 category.trim().isNotEmpty() && quantity.trim().isNotEmpty() &&
                 dateadded.trim().isNotEmpty() && user_id != -1L) {
 
-                // Validate quantity as an integer
                 if (quantity.toIntOrNull() == null) {
                     Toast.makeText(this, "Quantity must be a valid integer", Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
 
-                // Validate date format
                 if (!isValidDateFormat(dateadded)) {
                     Toast.makeText(this, "Invalid date format. Please use MM/DD/YY", Toast.LENGTH_LONG).show()
                     return@setOnClickListener
@@ -55,7 +53,7 @@ class AddProduct : AppCompatActivity() {
                 val barcodeInt = try {
                     barcode.toInt()
                 } catch (e: NumberFormatException) {
-                    // Handle the case where barcode is not a valid integer
+
                     Toast.makeText(this, "Invalid barcode format. Please enter a valid integer.", Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }

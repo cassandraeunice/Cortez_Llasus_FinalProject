@@ -22,7 +22,6 @@ class LoginPage : AppCompatActivity() {
         var tvSignUp = findViewById<TextView>(R.id.tvSignUp)
         var tvForgotPassw = findViewById<TextView>(R.id.tvForgotPassword)
 
-        // Database helper instance
         val dbHelper = DatabaseHelper(this)
 
         btnLogin.setOnClickListener {
@@ -33,10 +32,9 @@ class LoginPage : AppCompatActivity() {
                 val success = dbHelper.readUser(username, password)
 
                 if (success) {
-                    // Get the user identifier from your database (replace with your logic)
+
                     val userId = dbHelper.getUserId(username)
 
-                    // Store the user identifier in SharedPreferences
                     val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     editor.putLong("USER_ID", userId.toInt().toLong())

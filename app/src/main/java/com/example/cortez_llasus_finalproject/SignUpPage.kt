@@ -66,7 +66,7 @@ class SignUpPage : AppCompatActivity() {
                             Toast.makeText(this, "Email is already in use", Toast.LENGTH_LONG).show()
                         }
                         result != -1L -> {
-                            // User successfully signed up
+
                             Toast.makeText(this, "Signed up Successfully", Toast.LENGTH_LONG).show()
 
                             val i = Intent(this, LoginPage::class.java)

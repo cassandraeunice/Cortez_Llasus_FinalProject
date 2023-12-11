@@ -8,7 +8,7 @@ import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
 
-    private val ANIMATION_DURATION: Long = 6000
+    private val ANIMATION_DURATION: Long = 4500
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

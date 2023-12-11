@@ -71,14 +71,11 @@ class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
         val items: List<InventoryItem> = databaseHelper.viewInventory(userId)
         updateTotalCount(items)
 
-        // Update the data in the adapter
         inventoryListAdapter.updateData(items)
-        // Notify the adapter that the data set has changed
+
         inventoryListAdapter.notifyDataSetChanged()
 
-        // Recreate the activity
         recreate()
-
     }
 
     private fun updateTotalCount(items: List<InventoryItem>) {
@@ -108,21 +105,20 @@ class ViewInventory : AppCompatActivity(), OnItemDeletedListener {
             .setTitle("Delete Item")
             .setMessage("Are you sure you want to delete this item?")
             .setPositiveButton("Yes") { _, _ ->
-                // Call deleteItem on the adapter to remove the item
+
                 inventoryListAdapter.deleteItem(itemToDelete)
 
-                // If needed, you can also delete the item from the database here
                 val barcode = itemToDelete.barcode
                 barcode?.let {
                     val databaseHelper: DatabaseHelper = DatabaseHelper(this)
                     val rowsAffected = databaseHelper.deleteInventoryItem(it)
                     if (rowsAffected > 0) {
-                        // Item deleted successfully
+
                         Log.d("ViewInventory", "Item deleted from the database")
-                        // Refresh the view after deletion
+
                         viewInventory(findViewById<View>(android.R.id.content), userId)
                     } else {
-                        // Failed to delete item, handle accordingly
+
                         Log.d("ViewInventory", "Failed to delete item from the database")
                     }
                 }
